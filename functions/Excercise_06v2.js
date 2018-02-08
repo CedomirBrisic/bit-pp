@@ -15,4 +15,4 @@ function firstOccur(myString, letter) {
     }
     return result;
 }
-console.log(firstOccur("aaaaaaaaaaaa", "a"));
+console.log(firstOccur("aaaaabaaaaaaa", "a"));
