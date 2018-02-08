@@ -1,6 +1,6 @@
-/* function arithmetic(a, b, c, d) {
+ function arithmetic(a, b, c, d) {
     return (a + b + c+ d) / 4;
-} */
+}
 
 function arithmetic() {
     var sum = 0;
