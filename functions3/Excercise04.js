@@ -1,7 +1,7 @@
 //Write a function that reverses a number. The result must be a number.
 
 //12345 -> 54321 // Output must be a number
-
+"use strict";
 function reverseNumber(number){
     var stringNumber = "" + number;
     var finalNumber = "";

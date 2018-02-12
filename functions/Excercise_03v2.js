@@ -1,3 +1,5 @@
+"use strict";
+
 function conc (input, number){
     var con = "";
     for (var i=0; i < number; i++){

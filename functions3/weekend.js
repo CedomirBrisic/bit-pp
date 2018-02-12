@@ -1,4 +1,4 @@
-
+"use strict";
 
 function add(arr) {
     var result = [];

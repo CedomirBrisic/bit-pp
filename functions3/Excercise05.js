@@ -1,4 +1,6 @@
-array = [7, 9, 0, -2];
+"use strict";
+
+var array = [7, 9, 0, -2];
 
 function lastElements(n) {
     var resultArray = [];

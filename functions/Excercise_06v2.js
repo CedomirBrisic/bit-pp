@@ -1,3 +1,5 @@
+"use strict";
+
 function firstOccur(myString, letter) {
     var result;
     var i = 0;
