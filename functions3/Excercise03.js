@@ -9,11 +9,10 @@ function addToArray(stringArray) {
     var k=0;
 
     for (var i = 0; i < stringArray.length; i++) {
-    
-        if (!isNaN(stringArray[i]) && stringArray[i] !== "undefined" && stringArray[i] !== null && stringArray[i] !== false && isFinite(stringArray[i])) {
-            
-
-            resultArray[k] = stringArray[i];
+        var element = stringArray[i];
+        
+        if (!!element) {
+            resultArray[k] = element;
             k++;
         }
 
