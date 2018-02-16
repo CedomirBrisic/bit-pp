@@ -1,3 +1,5 @@
+"use strict";
+
 function array (string){
     var result = [];
     for (var i = 0; i < string.length; i++){

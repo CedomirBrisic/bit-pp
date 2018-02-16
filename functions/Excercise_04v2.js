@@ -1,3 +1,4 @@
+"use strict";
 
 function letterInString(myString,letter) {
     var count = 0;

@@ -1,3 +1,5 @@
+"use strict";
+
 function firstOccur(myString, letter) {
     var result;
     var i = 0;
@@ -15,4 +17,4 @@ function firstOccur(myString, letter) {
     }
     return result;
 }
-console.log(firstOccur("aaaaaaaaaaaa", "a"));
+console.log(firstOccur("aaaaabaaaaaaa", "a"));
