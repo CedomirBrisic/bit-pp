@@ -32,9 +32,10 @@ var minFunction = function min(input) {
 
     return res;
 
+
 }
 
-var maxIndex = function maxIndexA (input, maxFunction) {
+ function maxIndexA (input, maxFunction) {
     var i = 0;
     var result;
     while (input[i] != maxFunction) {
@@ -47,5 +48,5 @@ var maxIndex = function maxIndexA (input, maxFunction) {
     return result;
 
 }
-
+var maxIndex =maxIndexA(input,maxFunction);
     console.log(maxIndex(input));
