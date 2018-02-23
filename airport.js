@@ -42,6 +42,7 @@
         this.relation = departure + "-" + arrival;
         this.date = date;
         this.PassengerList = [];
+        this.numberOfPassangers = 0;
 
         this.getData = function () {
             return this.date + " " + this.relation;
@@ -50,14 +51,10 @@
 
         this.addPassenger = function (Passenger) {
             this.PassengerList.push(Passenger);
-        }
-
-        this.getNumberOfPassenger = function () {
-            return this.PassengerList.length;
+            this.numberOfPassangers += 1;
         }
 
     }
-
 
     function Airport() {
         this.name = "Nikola Tesla";
@@ -68,22 +65,27 @@
         }
 
         this.getData = function () {
-
             var output = "";
-
+            var firstRow = "";
             var myAirport = this.name;
-
-            output+= "Airport: " + myAirport + ", " + "total passengers: " + this.getNumberOfPassenger + "/n"
+            var totalNumber = 0;
+            
             this.listOfFlights.forEach(function (element) {
-
-                    output += "/t" + element.getData + "/n";
-                    output += "/t" + element.PassengerList + "/n";
+                totalNumber += element.numberOfPassangers;
+                output+= "\t" + element.getData() + "\n";
+                element.PassengerList.forEach(function(el){
+                    output+= "\t\t" +el.getData() + "\n";
+                
+                })
 
                 
-            })
-                return output;
+            });
+
+            firstRow = "Airport: " + myAirport + ", " + "total passengers: " + totalNumber + "\n";
+            return firstRow + output;
         }
     }
+
 
     function createFlight(departure, arrival, date) {
         return new Flight(departure, arrival, date);
@@ -94,11 +96,17 @@
 
     }
 
+    // function createPassenger(name, surname, seatNumber, category) {
+    //     var person = new Person(name, surname);
+    //     var seat = new Seat(seatNumber, category);
+    //     return new Passenger(person, seat);
+    // }
 
+    // var ceda = createPassenger( "Ceda", "Brisic", 17, "e")
 
     var BelgradeParis = new Flight("Belgrade", "Paris", "25.09.2017");
     var BarcelonaBelgrade = createFlight("Barcelona", "Belgrade", "25.11.2017");
-    var BelgradeNewYour = createFlight("Belgrade", "New Your", "26.09.2017");
+    var BelgradeNewYour = createFlight("Belgrade", "New York", "26.09.2017");
 
     var KhaleesiP = new Person("Daenerys", "Targaryen");
     var KhaleesiSeat = new Seat(13, "B");
@@ -112,16 +120,16 @@
     var TyrionSeat = new Seat();
     var Tyrion = createPassenger(TyrionP, TyrionSeat);
 
-    var JohnSnow = new Person("John", "Snow");
+    var JohnSnowP = new Person("John", "Snow");
     var SnowSeat = new Seat(12, "B");
-    var passengerOne = new Passenger(JohnSnow, SnowSeat);
+    var JohnS = new Passenger(JohnSnowP, SnowSeat);
 
     var NikolaTesla = new Airport();
     var AirSerbia = new Airport();
 
-    BelgradeParis.addPassenger(JohnSnow);
+    BelgradeParis.addPassenger(JohnS);
 
-    BelgradeNewYour.addPassenger(JohnSnow);
+    BelgradeNewYour.addPassenger(JohnS);
     BelgradeNewYour.addPassenger(Khaleesi);
 
     BarcelonaBelgrade.addPassenger(Tyrion);
@@ -135,7 +143,9 @@
 
 
 
+    // console.log(BelgradeNewYour.getData());
     console.log(AirSerbia.getData());
+
 
 
 
