@@ -3,7 +3,6 @@ function Country(name, odds, continent) {
     this.acronym = acronym(this.name);
     this.odds = odds;
     this.continent = continent;
-
 }
 
 
@@ -11,9 +10,6 @@ function Person(name, surname, dateOfBirth) {
     this.name = name;
     this.surname = surname;
     this.dateOfBirth = dateOfBirth;
-    this.getData = function () {
-        return this.name + " " + this.surname + "- " + this.dateOfBirth;
-    };
 }
 
 function Player(personO, bettingAmount, countryO) {
@@ -21,10 +17,6 @@ function Player(personO, bettingAmount, countryO) {
     this.bettingAmount = bettingAmount;
     this.country = countryO;
     this.expectedWinningAmount = (this.bettingAmount * this.country.odds).toFixed(2);
-    this.getData = function () {
-        return this.country.acronym + ", " + this.expectedWinningAmount + "EUR, " + this.person.name + " " + this.person.surname;
-    };
-
 }
 
 function Address(country, city, postalCode, street, num) {
@@ -33,57 +25,18 @@ function Address(country, city, postalCode, street, num) {
     this.postalCode = postalCode;
     this.street = street;
     this.num = num;
-    this.getData = function () {
-        return this.street + " " + this.num + ", " + this.postalCode + " " + this.city + ", " + acronym(this.country.name);
-    };
 }
 
 function BettingPlace(AddressO) {
     this.address = AddressO;
     this.listOfPlayers = [];
     this.numberOfPlayers = 0;
-    this.addPlayer = function (playerO) {
-        this.listOfPlayers.push(playerO);
-        this.numberOfPlayers += 1;
-    };
-    this.sumOfBets = function () {
-        var sum = 0;
-        for (var i = 0; i < this.listOfPlayers.length; i++) {
-            sum += parseFloat(this.listOfPlayers[i].bettingAmount);
-        }
-        return sum;
-    };
-    this.getData = function () {
-        return this.address.street + ", " + this.address.postalCode + " " + this.address.city + ", sum of all bets: " + this.sumOfBets();
-    };
 }
 
 function BettingHouse(competition) {
     this.competition = competition;
     this.bettingPlaces = [];
     this.numberOfPlayers = 0;
-    this.addBettingPlace = function (bettingPlace) {
-        this.bettingPlaces.push(bettingPlace);
-        this.numberOfPlayers += bettingPlace.numberOfPlayers;
-    };
-
-    this.getData = function () {
-        var firstRow = this.competition + ", " + this.bettingPlaces.length + " betting places, " + this.numberOfPlayers + " bets \n";
-        var output = "";
-        var SRBIJA = 0;
-        this.bettingPlaces.forEach(function(element) {
-            output += "\t" + element.getData() + "\n";
-            element.listOfPlayers.forEach(function(el){
-                output += "\t\t" + el.getData() + "\n";
-                if (el.country.acronym == "SR") {
-                    SRBIJA += 1;
-                }
-            });
-
-        });
-
-        return firstRow + output + " - " + "There are " + SRBIJA + " bets on Serbia";
-    };
 }
 
 function acronym(name) {
@@ -134,6 +87,61 @@ function newBettingPlace(country, city, postalCode, street, num) {
     return new BettingPlace(address);
 }
 
+Person.prototype.getData = function () {
+    return this.name + " " + this.surname + "- " + this.dateOfBirth;
+};
+
+Player.prototype.getData = function () {
+    return this.country.acronym + ", " + this.expectedWinningAmount + "EUR, " + this.person.name + " " + this.person.surname;
+};
+
+Address.prototype.getData = function () {
+    return this.street + " " + this.num + ", " + this.postalCode + " " + this.city + ", " + acronym(this.country.name);
+};
+
+BettingPlace.prototype.addPlayer = function (playerO) {
+    this.listOfPlayers.push(playerO);
+    this.numberOfPlayers += 1;
+};
+
+BettingPlace.prototype.sumOfBets = function () {
+    var sum = 0;
+    for (var i = 0; i < this.listOfPlayers.length; i++) {
+        sum += parseFloat(this.listOfPlayers[i].bettingAmount);
+    }
+    return sum;
+};
+
+BettingPlace.prototype.getData = function () {
+    return this.address.street + ", " + this.address.postalCode + " " + this.address.city + ", sum of all bets: " + this.sumOfBets();
+};
+
+BettingHouse.prototype.addBettingPlace = function (bettingPlace) {
+    this.bettingPlaces.push(bettingPlace);
+    this.numberOfPlayers += bettingPlace.numberOfPlayers;
+};
+
+BettingHouse.prototype.getData = function () {
+    var firstRow = this.competition + ", " + this.bettingPlaces.length + " betting places, " + this.numberOfPlayers + " bets \n";
+    var output = "";
+    var SRBIJA = 0;
+    this.bettingPlaces.forEach(function(element) {
+        output += "\t" + element.getData() + "\n";
+        element.listOfPlayers.forEach(function(el){
+            output += "\t\t" + el.getData() + "\n";
+            if (el.country.acronym == "SR") {
+                SRBIJA += 1;
+            }
+        });
+
+    });
+
+    return firstRow + output + " - " + "There are " + SRBIJA + " bets on Serbia";
+};
+
+
+
+
 var KladionicarskaKuca = new BettingHouse("Football World Cup");
 
 var player1 = newPlayer("Ime1", "Prezime1", "1.1.1986", 1050, "Srbija", 9.90, "Europe");
@@ -153,4 +161,4 @@ bettingPlace2.addPlayer(player4);
 KladionicarskaKuca.addBettingPlace(bettingPlace1);
 KladionicarskaKuca.addBettingPlace(bettingPlace2);
 
-console.log(KladionicarskaKuca.getData());
+console.log(bettingPlace1);

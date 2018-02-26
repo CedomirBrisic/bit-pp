@@ -6,86 +6,79 @@
 
     function Person(name, surname) {
         this.name = name;
-        this.surname = surname;
-        this.getData = function () {
-            return this.name + " " + this.surname;
-        }
+        this.surname = surname
     }
 
     function Seat(number, category) {
         this.number = (function () {
             return number || Math.floor(Math.random() * (100 - 10) + 10);
-
         })();
-
         this.category = (function () {
             return category || "E";
         })();
-
-        this.getData = function () {
-            return this.number + ", " + this.category;
-        }
     }
-
 
     function Passenger(personO, seatO) {
         this.person = personO;
-        this.seat = seatO;
-
-        this.getData = function () {
-            return this.seat.getData() + ", " + this.person.getData();
-        }
+        this.seat = seatO;  
     }
-
 
     function Flight(departure, arrival, date) {
         this.relation = departure + "-" + arrival;
         this.date = date;
         this.PassengerList = [];
         this.numberOfPassangers = 0;
-
-        this.getData = function () {
-            return this.date + " " + this.relation;
-
-        }
-
-        this.addPassenger = function (Passenger) {
-            this.PassengerList.push(Passenger);
-            this.numberOfPassangers += 1;
-        }
-
     }
 
     function Airport() {
         this.name = "Nikola Tesla";
-        this.listOfFlights = [];
-
-        this.addFlight = function (Flight) {
-            this.listOfFlights.push(Flight);
-        }
-
-        this.getData = function () {
-            var output = "";
-            var firstRow = "";
-            var myAirport = this.name;
-            var totalNumber = 0;
-            
-            this.listOfFlights.forEach(function (element) {
-                totalNumber += element.numberOfPassangers;
-                output+= "\t" + element.getData() + "\n";
-                element.PassengerList.forEach(function(el){
-                    output+= "\t\t" +el.getData() + "\n";
-                
-                })
-
-                
-            });
-
-            firstRow = "Airport: " + myAirport + ", " + "total passengers: " + totalNumber + "\n";
-            return firstRow + output;
-        }
+        this.listOfFlights = [];   
     }
 
+    Person.prototype.getData = function () {
+        return this.name + " " + this.surname;
+    }
+
+    Seat.prototype.getData = function () {
+        return this.number + ", " + this.category;
+    }
+            
+    Passenger.prototype.getData = function () {
+        return this.seat.getData() + ", " + this.person.getData();
+    }
+
+    Flight.prototype.getData = function () {
+        return this.date + " " + this.relation;
+
+    }
+
+    Flight.prototype.addPassenger = function (Passenger) {
+        this.PassengerList.push(Passenger);
+        this.numberOfPassangers += 1;
+    }
+
+    Airport.prototype.addFlight = function (Flight) {
+        this.listOfFlights.push(Flight);
+    }
+
+    Airport.prototype.getData = function () {
+        var output = "";
+        var firstRow = "";
+        var myAirport = this.name;
+        var totalNumber = 0;
+        
+        this.listOfFlights.forEach(function (element) {
+            totalNumber += element.numberOfPassangers;
+            output+= "\t" + element.getData() + "\n";
+            element.PassengerList.forEach(function(el){
+                output+= "\t\t" +el.getData() + "\n";
+            
+            })
+        });
+
+        firstRow = "Airport: " + myAirport + ", " + "total passengers: " + totalNumber + "\n";
+        return firstRow + output;
+    }
 
     function createFlight(departure, arrival, date) {
         return new Flight(departure, arrival, date);
@@ -93,7 +86,6 @@
 
     function createPassenger(personO, seatO) {
         return new Passenger(personO, seatO)
-
     }
 
     // function createPassenger(name, surname, seatNumber, category) {
@@ -145,8 +137,4 @@
 
     // console.log(BelgradeNewYour.getData());
     console.log(AirSerbia.getData());
-
-
-
-
 })();
