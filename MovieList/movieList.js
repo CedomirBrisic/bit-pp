@@ -3,6 +3,7 @@ function Movie(title, genre, length) {
     this.genre = genre;
     this.length = length;
 }
+
 Movie.prototype.getData = function () {
     return this.title + ', ' + this.genre + ", " + this.length + " min";
 }
@@ -14,27 +15,39 @@ function createMovie() {
     var genre = document.querySelector("#movieGenre").value;
     var length = document.querySelector("#movieLength").value;
 
-    var movie = new Movie(title, genre, length);
+    var NewMovie = new Movie(title, genre, length);
 
-    movieList.push(movie)
-    var i = movieList.length-1;
+    movieList.push(NewMovie)
+    var i = movieList.length - 1;
     for (i; i < movieList.length; i++) {
         var newEl = document.createElement("li");
-        var content = document.createTextNode(movieList[i].getData())
-        var listaFilmova = document.querySelector("ul");
-        newEl.appendChild(content)
+        var content = document.createTextNode(movieList[i].getData());
+        var listaFilmova = document.querySelector(".listaFilmova");
+        newEl.appendChild(content);
         listaFilmova.appendChild(newEl);
 
+        var movieListTitle = (movieList[i].title).toString();
+        var newElDropdown = document.createElement("option");
+        newElDropdown.setAttribute("value", movieListTitle);
+        newElDropdown.setAttribute("class", "selectedMovies");
+        var dropdownItem = document.createTextNode(movieListTitle);
+        var listaFilmovaProgram = document.querySelector(".listaFilmovaProgram");
+        listaFilmovaProgram.appendChild(newElDropdown);
+        newElDropdown.appendChild(dropdownItem);
     }
-
-    console.table(movie);
-    console.log(movieList);
 }
+
 function Program(date) {
     this.date = new Date(date);
     this.listOfMovies = [];
     this.numberOfMovies = 0;
 }
+
+Program.prototype.addMovie = function (movieO) {
+    this.listOfMovies.push(movieO);
+    this.numberOfMovies++;
+};
+
 Program.prototype.getData = function () {
     var totalLength = 0;
     var output = "";
@@ -45,12 +58,25 @@ Program.prototype.getData = function () {
     var firstRow = "\t" + this.date + ", " + totalLength + " min \n";
     return firstRow + output;
 };
+
 function createProgram() {
-    var dateP = new Date(document.querySelector('#programDate').value);
-    var program= new Program(dateP);
+    var date = document.querySelector("#programDate").value;
+
+    var NewProgram = new Program(date);
+
     var newEl = document.createElement("li");
-    var content = document.createTextNode(movieList[i].getData())
-    var listaFilmova = document.querySelector("ul");
-    newEl.appendChild(content)
-    listaFilmova.appendChild(newEl);
+    var newElSelect = document.createElement("option");
+    var content1 = document.createTextNode(NewProgram.getData());
+    var content2 = document.createTextNode(NewProgram.getData());
+    var listaPrograma = document.querySelector(".listaPrograma");
+    var listaProgramaSelect = document.querySelector(".listaProgramaSelect")
+    newEl.appendChild(content1);
+    listaPrograma.appendChild(newEl);
+    newElSelect.appendChild(content2);
+    listaProgramaSelect.appendChild(newElSelect);
 }
+
+// function AddMovieToProgram(movie,program){
+//     var movie = document.
+// }
+

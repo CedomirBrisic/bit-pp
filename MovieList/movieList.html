@@ -21,20 +21,35 @@
             <option value="DR">Drama</option>
         </select>
         <input type="submit" class='button' onclick="createMovie()" value="Create">
-   
-    <ul class="listaFilmova">
 
-    </ul>
-</Fieldset>
+        <ul class="listaFilmova">
 
-<fieldset>
-    <legend>Program</legend>
-    <input type='date' id='programDate' placeholder="dd/mm/yyyy">
-    <input type= 'submit' class ='button' onclick="" value='create program'>
-    <ul class = 'listaPrograma'>
-        
-    </ul>
-</fieldset>
+        </ul>
+    </Fieldset>
+
+    <fieldset>
+        <legend>Program</legend>
+        <input type='date' id='programDate' value="" placeholder="dd/mm/yyyy">
+        <input type='submit' class='button' onclick="createProgram()" value='createProgram'>
+        <ul class='listaPrograma'>
+
+        </ul>
+        <fieldset>
+            <legend>Adding Movie to Program</legend>
+            <label>Please select Movie to add to Program:
+                <select name="listaFilmovaProgram" class="listaFilmovaProgram">
+
+                </select>
+            </label>
+            <label>Please select program where to add Movie:
+                <select name="listaProgramaSelect" class="listaProgramaSelect">
+
+                </select>
+            </label>
+            <input type='submit' class='button addMovieButton' onclick="" value='addMovieToProgram'>
+
+        </fieldset>
+    </fieldset>
     <script src="movieList.js"></script>
 </body>
 
