@@ -28,7 +28,7 @@ function createMovie() {
 
         var movieListTitle = (movieList[i].title).toString();
         var newElDropdown = document.createElement("option");
-        newElDropdown.setAttribute("value", movieListTitle);
+        newElDropdown.setAttribute("value", i);
         newElDropdown.setAttribute("class", "selectedMovies");
         var dropdownItem = document.createTextNode(movieListTitle);
         var listaFilmovaProgram = document.querySelector(".listaFilmovaProgram");
@@ -59,24 +59,57 @@ Program.prototype.getData = function () {
     return firstRow + output;
 };
 
+var programList = [];
+
 function createProgram() {
     var date = document.querySelector("#programDate").value;
 
-    var NewProgram = new Program(date);
+    var newProgram = new Program(date);
+    var i = programList.length;
+    programList.push(newProgram);
+
+
 
     var newEl = document.createElement("li");
     var newElSelect = document.createElement("option");
-    var content1 = document.createTextNode(NewProgram.getData());
-    var content2 = document.createTextNode(NewProgram.getData());
+    newElSelect.setAttribute("value", i);
+    var content1 = document.createTextNode(newProgram.getData());
+    var content2 = document.createTextNode(newProgram.getData());
     var listaPrograma = document.querySelector(".listaPrograma");
     var listaProgramaSelect = document.querySelector(".listaProgramaSelect")
     newEl.appendChild(content1);
     listaPrograma.appendChild(newEl);
     newElSelect.appendChild(content2);
     listaProgramaSelect.appendChild(newElSelect);
+
+}
+
+
+function AddMovieToProgram() {
+    var movieChoose = document.querySelector('.listaFilmovaProgram');
+    var movieI = movieChoose.options[movieChoose.selectedIndex].value;
+
+    var programChoose = document.querySelector('.listaProgramaSelect');
+    var programI = programChoose.options[programChoose.selectedIndex].value;
+
+    programList[programI].addMovie(movieList[movieI]);
+
+    var newEl = document.createElement('li');
+    var content = document.createTextNode(programList[programI].getData());
+    var listaProgramaFilmova = document.querySelector('.movieInProgram');
+    
+
+
+    
+
+    newEl.appendChild(content);
+    listaProgramaFilmova.appendChild(newEl);
+
+
+
+
 }
 
 // function AddMovieToProgram(movie,program){
 //     var movie = document.
 // }
-
