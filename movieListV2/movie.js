@@ -1,23 +1,28 @@
-var movieData = (function () {
+var dataModule = (function () {
+    var listOfMovies = [];
+
     function Movie(title, length, genre) {
         this.title = title;
         this.length = length;
         this.genre = genre;
     }
-    var listOfMovies = [];
 
-    function addMovie (title,length,genre){
-        var movie = new Movie(title,length,genre);
+    Movie.prototype.getData = function () {
+        return this.title + ", " + this.genre + " duration: " + this.length;
+    }
+
+    function addMovie(title, length, genre) {
+        var movie = new Movie(title, length, genre);
         listOfMovies.push(movie);
+        return movie;
     }
 
     return {
-        addMovie:addMovie,
-        listOfMovies: listOfMovies,
+        addMovie: addMovie
     }
 })();
 
-var uiFormData = (function () {
+var uiModule = (function () {
     var domQueries = {
         button: ".create-movie",
         inputTitle: ".movie-title",
@@ -25,36 +30,42 @@ var uiFormData = (function () {
         inputGenre: ".genre-select"
     }
     var movieValues = {
-        title: document.querySelector(".movie-title").value,
-        length: document.querySelector(".movie-length").value,
-        genre: document.querySelector(".genre-select").value
+        title: document.querySelector(".movie-title"),
+        length: document.querySelector(".movie-length"),
+        genre: document.querySelector(".genre-select"),
+        button: document.querySelector(".create-movie"),
+        displayMovieList: document.querySelector(".movie-list"),
     }
 
-    var selectElement = function (element) {
-        var node = document.querySelector(element);
-        // node.classList
-        return node;
-    }
-
-    return {
-        domQueries: domQueries,
-        selectElement: selectElement,
+    var objectToExpose = {
         movieValues: movieValues,
     };
+
+    return objectToExpose
 })();
 
-var controller = (function (ui, data) {
-    var button = uiFormData.selectElement(uiFormData.domQueries.button);
-    var title = uiFormData.selectElement(uiFormData.domQueries.inputTitle);
-    var length = uiFormData.selectElement(uiFormData.domQueries.inputLength);
-    var genre = uiFormData.selectElement(uiFormData.domQueries.inputGenre);
-
-
-
-    button.addEventListener("click", createMovie);
-
+var controller = (function (data, ui) {
+    var buttonElement = ui.movieValues.button;
+    var titleElement = ui.movieValues.title;
+    var length = ui.movieValues.length;
+    var genre = ui.movieValues.genre;
+    
+    
+    buttonElement.addEventListener("click", createMovie);
+    
     function createMovie() {
-        movieData.addMovie(uiFormData.movieValues.title,uiFormData.movieValues.length,uiFormData.movieValues.genre)
+        var titleInputValue = titleElement.value;
+        var createdMovie = dataModule.addMovie(titleInputValue, length.value, genre.value);
+        
+        // var display = titleInputValue + ", " + genre.value + "- duration:" + length.value;
+        
+        var newElement = document.createElement("p");
+        newElement.textContent = createdMovie.getData();
+        
+        var displayList = ui.movieValues.displayMovieList;
+        console.log(displayList);
+        
+        displayList.appendChild(newElement);
     }
 
-})(uiFormData, movieData);
+})(dataModule, uiModule);
