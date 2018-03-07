@@ -1,20 +1,20 @@
-"use strict mode";
+
 
 (function hi() {
     console.log("Hi :-)")
 
 
-    function Person(name, surname) {
+    function Person(name = "John", surname = "Doe") {
         this.name = name;
         this.surname = surname
     }
 
-    function Seat(number, category) {
+    function Seat(number = 0, category = "E") {
         this.number = (function () {
             return number || Math.floor(Math.random() * (100 - 10) + 10);
         })();
         this.category = (function () {
-            return category || "E";
+            return category;
         })();
     }
 
@@ -62,16 +62,17 @@
     }
 
     Airport.prototype.getData = function () {
-        var output = "";
-        var firstRow = "";
-        var myAirport = this.name;
-        var totalNumber = 0;
+        let output = "";
+         firstRow = "";
+         myAirport = this.name;
+         totalNumber = 0;
         
         this.listOfFlights.forEach(function (element) {
             totalNumber += element.numberOfPassangers;
-            output+= "\t" + element.getData() + "\n";
+            output+= `  ${element.getData()}`;
             element.PassengerList.forEach(function(el){
-                output+= "\t\t" +el.getData() + "\n";
+                output+= `${el.getData()}
+                `;
             
             })
         });
@@ -96,28 +97,28 @@
 
     // var ceda = createPassenger( "Ceda", "Brisic", 17, "e")
 
-    var BelgradeParis = new Flight("Belgrade", "Paris", "25.09.2017");
-    var BarcelonaBelgrade = createFlight("Barcelona", "Belgrade", "25.11.2017");
-    var BelgradeNewYour = createFlight("Belgrade", "New York", "26.09.2017");
+    const BelgradeParis = new Flight("Belgrade", "Paris", "25.09.2017");
+    const BarcelonaBelgrade = createFlight("Barcelona", "Belgrade", "25.11.2017");
+    const BelgradeNewYour = createFlight("Belgrade", "New York", "26.09.2017");
 
-    var KhaleesiP = new Person("Daenerys", "Targaryen");
-    var KhaleesiSeat = new Seat(13, "B");
-    var Khaleesi = createPassenger(KhaleesiP, KhaleesiSeat);
+    const KhaleesiP = new Person("Daenerys", "Targaryen");
+    const KhaleesiSeat = new Seat(13, "B");
+    const Khaleesi = createPassenger(KhaleesiP, KhaleesiSeat);
 
-    var CerseiP = new Person("Cersei", "Lannister");
-    var CerseiSeat = new Seat(2, "b");
-    var Cersei = createPassenger(CerseiP, CerseiSeat);
+    const CerseiP = new Person("Cersei", "Lannister");
+    const CerseiSeat = new Seat(2, "b");
+    const Cersei = createPassenger(CerseiP, CerseiSeat);
 
-    var TyrionP = new Person("Tyrion", "Lannister");
-    var TyrionSeat = new Seat();
-    var Tyrion = createPassenger(TyrionP, TyrionSeat);
+    const TyrionP = new Person("Tyrion", "Lannister");
+    const TyrionSeat = new Seat();
+    const Tyrion = createPassenger(TyrionP, TyrionSeat);
 
-    var JohnSnowP = new Person("John", "Snow");
-    var SnowSeat = new Seat(12, "B");
-    var JohnS = new Passenger(JohnSnowP, SnowSeat);
+    const JohnSnowP = new Person("John", "Snow");
+    const SnowSeat = new Seat(12);
+    const JohnS = new Passenger(JohnSnowP, SnowSeat);
 
-    var NikolaTesla = new Airport();
-    var AirSerbia = new Airport();
+    const NikolaTesla = new Airport();
+    const AirSerbia = new Airport();
 
     BelgradeParis.addPassenger(JohnS);
 
@@ -133,7 +134,7 @@
     AirSerbia.addFlight(BarcelonaBelgrade);
 
 
-
+    createPassenger
 
     // console.log(BelgradeNewYour.getData());
     console.log(AirSerbia.getData());

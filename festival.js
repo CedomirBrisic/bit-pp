@@ -24,7 +24,7 @@
             return (this.name.charAt(0) + this.name.charAt(this.name.length - 1)).toUpperCase();
         };
         Movie.prototype.getData = function () {
-            return this.title + ", " + this.movieLength + " min, " + this.genreO.getData();
+            return `${this.title}, ${this.movieLength}  min,${this.genreO.getData()}`;
         };
 
         Program.prototype.addMovie = function (movieO) {
@@ -33,13 +33,15 @@
         };
 
         Program.prototype.getData = function () {
-            var totalLength = 0;
-            var output = "";
+            let totalLength = 0;
+            let output = "";
             this.listOfMovies.forEach(function (element) {
                 totalLength += element.movieLength;
-                output += "\t\t" + element.getData() + "\n";
+                output += `      ${element.getData()} 
+                `
             });
-            var firstRow = "\t" + this.date + ", " + totalLength + " min \n";
+            let firstRow = `${this.date},  ${totalLength} min
+            `;
             return firstRow + output;
         };
 
@@ -49,27 +51,28 @@
         };
 
         Festival.prototype.getData = function () {
-            var firstRow = this.name + " has " + this.numberOfAllMovies + " movie titles \n";
-            var output = "";
+            const firstRow = `${this.name} has ${this.numberOfAllMovies}  movie titles
+            `;
+            let output = "";
             this.listOfPrograms.forEach(function (element) {
                 output += element.getData();
             });
             return firstRow + output;
         };
 
-        var sunDance = new Festival("Sun Dance");
+        const sunDance = new Festival("Sun Dance");
 
-        var action = new Genre("action");
-        var redemption = new Movie("The Shawsshank Redemption", action, 130);
+        const action = new Genre("action");
+        const redemption = new Movie("The Shawsshank Redemption", action, 130);
 
 
-        var program1 = new Program("10.28.2017");
-        var program2 = new Program("10.29.2017");
+        const program1 = new Program("10.28.2017");
+        const program2 = new Program("10.29.2017");
 
-        var spiderMan = createMovie("Spider Man: Hometown", "Action", 133);
-        var planetOfApes = createMovie("War for the Planet of the Apes", "Drama", 140);
-        var darkTower = createMovie("The Dark Tower", "Western", 95);
-        var deadpool = createMovie("Deadpool", "Comedy", 108);
+        const spiderMan = createMovie("Spider Man: Hometown", "Action", 133);
+        const planetOfApes = createMovie("War for the Planet of the Apes", "Drama", 140);
+        const darkTower = createMovie("The Dark Tower", "Western", 95);
+        const deadpool = createMovie("Deadpool", "Comedy", 108);
 
         program1.addMovie(spiderMan);
         program1.addMovie(planetOfApes);
@@ -83,9 +86,16 @@
 
 
         function createMovie(title, genreName, movieLength) {
-            var genreO = new Genre(genreName);
-            return new Movie(title, genreO, movieLength);
+            let genreO = new Genre(genreName);
+            const title1 = title;
+            const movieLength1 = movieLength;
+            return new Movie(title1, genreO, movieLength1);
         };
 
+        const PoslednjiSkaut = createMovie ("poslednji skaut", "akcija", 90);
 
-        console.log(program1.getData());
+        PoslednjiSkaut.movieLength = 120;
+    
+
+        
+        console.log(sunDance.getData());
